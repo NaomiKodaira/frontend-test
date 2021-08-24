@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import outline from 'assets/icones/heart/outline.svg';
@@ -28,12 +28,32 @@ const FavouriteStyled = styled.button`
 `;
 
 function Favourite(props) {
-  const { favourite, setFavourite } = props;
+  const { heroId } = props;
+  const [isFavourite, setIsFavourite] = useState(
+    (JSON.parse(localStorage.getItem('favHeroes')) || []).find(
+      item => item === heroId,
+    ),
+  );
+
+  const setFavourite = () => {
+    let currentFav = JSON.parse(localStorage.getItem('favHeroes')) || [];
+    if (isFavourite) {
+      currentFav = currentFav.filter(item => item !== heroId);
+      setIsFavourite(false);
+    } else {
+      if (currentFav.length >= 5) {
+        // const removed = currentFav.shift();
+        // console.log('shift: ', currentFav);
+        return;
+      }
+      currentFav.push(heroId);
+      setIsFavourite(true);
+    }
+    localStorage.setItem('favHeroes', JSON.stringify(currentFav));
+  };
+
   return (
-    <FavouriteStyled
-      favourite={favourite}
-      onClick={() => setFavourite(!favourite)}
-    >
+    <FavouriteStyled favourite={isFavourite} onClick={() => setFavourite()}>
       <img src={outline} alt="Favoritar" />
       <img src={full} alt="Favoritado" />
     </FavouriteStyled>
@@ -41,13 +61,7 @@ function Favourite(props) {
 }
 
 Favourite.propTypes = {
-  favourite: PropTypes.bool,
-  setFavourite: PropTypes.func,
-};
-
-Favourite.defaultProps = {
-  favourite: false,
-  setFavourite: () => {},
+  heroId: PropTypes.number.isRequired,
 };
 
 export default Favourite;

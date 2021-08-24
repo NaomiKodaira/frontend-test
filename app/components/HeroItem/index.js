@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import colours from 'config/colours';
 import { MediumText } from 'components/Text';
 import Favourite from 'components/Favourite';
+
 const HeroItemStyled = styled.div`
   width: 100%;
 
@@ -23,7 +24,6 @@ const HeroItemStyled = styled.div`
 
 function HeroItem(props) {
   const { data } = props;
-  const [favourite, setFavourite] = useState(false);
   return (
     <HeroItemStyled>
       <img
@@ -34,7 +34,7 @@ function HeroItem(props) {
       />
       <div>
         <MediumText fontWeight="bold">{data.name}</MediumText>
-        <Favourite favourite={favourite} setFavourite={setFavourite} />
+        <Favourite heroId={data.id} />
       </div>
     </HeroItemStyled>
   );
