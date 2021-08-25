@@ -11,6 +11,7 @@ import api from 'api';
 import HeroesList from 'components/HeroesList';
 import { MediumText } from 'components/Text';
 import { IconLink } from 'components/Button';
+import SearchBar from 'components/SearchBar';
 import styled from 'styled-components';
 import hero from 'assets/icones/heroi/heroi.svg';
 import heart from 'assets/icones/heart/full.svg';
@@ -42,6 +43,9 @@ export default function HomePage() {
 
   return (
     <HomeStyled>
+      <FormattedMessage {...messages.search}>
+        {msg => <SearchBar placeholder={msg} />}
+      </FormattedMessage>
       <MediumText colour="tertiaryTextColour">
         <FormattedMessage {...messages.found} values={{ value: heroCount }} />
       </MediumText>
