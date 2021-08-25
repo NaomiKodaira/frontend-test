@@ -145,6 +145,6 @@ module.exports = require('./webpack.base.babel')({
 
   performance: {
     assetFilter: assetFilename =>
-      !/(\.map$)|(^(main\.|noun_Superhero_2227044@1,5x\.))/.test(assetFilename),
+      !/(\.map$)|(^(main\.|heroi\.))/.test(assetFilename),
   },
 });

@@ -10,7 +10,10 @@ import { FormattedMessage } from 'react-intl';
 import api from 'api';
 import HeroesList from 'components/HeroesList';
 import { MediumText } from 'components/Text';
+import { IconLink } from 'components/Button';
 import styled from 'styled-components';
+import hero from 'assets/icones/heroi/heroi.svg';
+import heart from 'assets/icones/heart/full.svg';
 import messages from './messages';
 
 const HomeStyled = styled.div`
@@ -39,9 +42,15 @@ export default function HomePage() {
 
   return (
     <HomeStyled>
-      <MediumText colour="tertiary">
+      <MediumText colour="tertiaryTextColour">
         <FormattedMessage {...messages.found} values={{ value: heroCount }} />
       </MediumText>
+      <IconLink icon={hero}>
+        <FormattedMessage {...messages.orderName} />
+      </IconLink>
+      <IconLink icon={heart}>
+        <FormattedMessage {...messages.favourite} />
+      </IconLink>
       <HeroesList heroes={heroes} />
     </HomeStyled>
   );

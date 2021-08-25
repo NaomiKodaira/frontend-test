@@ -6,7 +6,7 @@ import colours from 'config/colours';
 const MediumText = styled.p`
   font-size: 16px;
   margin: 0;
-  color: ${props => colours[`${props.colour}TextColour`]};
+  color: ${props => colours[`${props.colour}`]};
   font-weight: ${props => props.fontWeight};
   font-family: 'Work Sans', sans-serif;
 
@@ -23,7 +23,7 @@ MediumText.propTypes = {
 
 MediumText.defaultProps = {
   children: '',
-  colour: 'primary',
+  colour: 'primaryTextColour',
   fontWeight: 'normal',
 };
 
