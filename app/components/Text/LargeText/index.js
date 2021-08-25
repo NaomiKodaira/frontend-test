@@ -3,31 +3,31 @@ import styled from 'styled-components';
 import device from 'config/devices';
 import colours from 'config/colours';
 
-const SmallText = styled.p`
-  font-size: 14px;
+const LargeText = styled.p`
+  font-size: 20px;
   margin: 0;
   color: ${props => colours[`${props.colour}`]};
   font-weight: ${props => props.fontWeight};
   font-family: 'Work Sans', sans-serif;
-  text-align: ${props => props.textAlign};
+  text-transform: ${props => props.textTransform};
 
   @media ${device.tablet} {
-    font-size: 14px;
+    font-size: 22px;
   }
 `;
 
-SmallText.propTypes = {
+LargeText.propTypes = {
   children: PropTypes.any.isRequired,
   colour: PropTypes.string,
   fontWeight: PropTypes.string,
-  textAlign: PropTypes.string,
+  textTransform: PropTypes.string,
 };
 
-SmallText.defaultProps = {
+LargeText.defaultProps = {
   children: '',
   colour: 'primaryTextColour',
   fontWeight: 'normal',
-  textAlign: 'left',
+  textTransform: 'none',
 };
 
-export default SmallText;
+export default LargeText;
