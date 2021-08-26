@@ -28,21 +28,21 @@ const FavouriteStyled = styled.button`
 `;
 
 function Favourite(props) {
-  const { heroId } = props;
+  const { hero } = props;
   const [isFavourite, setIsFavourite] = useState(undefined);
 
   useEffect(() => {
     setIsFavourite(
       (JSON.parse(localStorage.getItem('favHeroes')) || []).find(
-        item => item === heroId,
+        item => item.id === hero.id,
       ),
     );
-  }, [heroId]);
+  }, [hero]);
 
   const setFavourite = () => {
     let currentFav = JSON.parse(localStorage.getItem('favHeroes')) || [];
     if (isFavourite) {
-      currentFav = currentFav.filter(item => item !== heroId);
+      currentFav = currentFav.filter(item => item.id !== hero.id);
       setIsFavourite(false);
     } else {
       if (currentFav.length >= 5) {
@@ -50,7 +50,12 @@ function Favourite(props) {
         // console.log('shift: ', currentFav);
         return;
       }
-      currentFav.push(heroId);
+      currentFav.push({
+        id: hero.id,
+        name: hero.name,
+        modified: hero.modified,
+        thumbnail: hero.thumbnail,
+      });
       setIsFavourite(true);
     }
     localStorage.setItem('favHeroes', JSON.stringify(currentFav));
@@ -65,7 +70,7 @@ function Favourite(props) {
 }
 
 Favourite.propTypes = {
-  heroId: PropTypes.number.isRequired,
+  hero: PropTypes.object.isRequired,
 };
 
 export default Favourite;

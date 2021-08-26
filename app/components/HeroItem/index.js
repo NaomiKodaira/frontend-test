@@ -38,7 +38,7 @@ function HeroItem(props) {
       />
       <div>
         <MediumText fontWeight="bold">{data.name}</MediumText>
-        <Favourite heroId={data.id} />
+        <Favourite hero={data} />
       </div>
     </HeroItemStyled>
   );

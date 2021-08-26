@@ -28,10 +28,18 @@ export default function HomePage() {
   const [heroes, setHeroes] = useState(undefined);
   const [name, setName] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(1);
+  const [order, setOrder] = useState('name');
+  const [onlyFavs, setOnlyFavs] = useState(false);
 
-  async function getProposalsList() {
+  const setFilters = () => {
     const filters = { limit, offset: (currentPage - 1) * limit };
     if (name) filters.nameStartsWith = name;
+    if (order) filters.orderBy = order;
+    return filters;
+  };
+
+  async function getHeroesList() {
+    const filters = setFilters();
 
     await api
       .getCharacters(filters)
@@ -44,14 +52,33 @@ export default function HomePage() {
       });
   }
 
+  function getHeroesFav() {
+    // const filters = setFilters();
+
+    const favs = JSON.parse(localStorage.getItem('favHeroes'));
+    setHeroCount(favs.length);
+    setHeroes(favs);
+  }
+
   useEffect(() => {
-    getProposalsList();
+    if (onlyFavs) {
+      getHeroesFav();
+    } else {
+      getHeroesList();
+    }
   }, [currentPage]);
 
   useEffect(() => {
-    setCurrentPage(1);
-    getProposalsList();
-  }, [name]);
+    if (currentPage === 1) {
+      if (onlyFavs) {
+        getHeroesFav();
+      } else {
+        getHeroesList();
+      }
+    } else {
+      setCurrentPage(1);
+    }
+  }, [name, onlyFavs, order]);
 
   return (
     <Layout>
@@ -68,15 +95,18 @@ export default function HomePage() {
             />
           )}
         </FormattedMessage>
+        <IconLink
+          icon={hero}
+          onClick={() => setOrder((order === 'name' && 'modified') || 'name')}
+        >
+          <FormattedMessage {...messages.orderName} />
+        </IconLink>
+        <IconLink icon={heart} onClick={() => setOnlyFavs(!onlyFavs)}>
+          <FormattedMessage {...messages.favourite} />
+        </IconLink>
         <MediumText colour="tertiaryTextColour">
           <FormattedMessage {...messages.found} values={{ value: heroCount }} />
         </MediumText>
-        <IconLink icon={hero}>
-          <FormattedMessage {...messages.orderName} />
-        </IconLink>
-        <IconLink icon={heart}>
-          <FormattedMessage {...messages.favourite} />
-        </IconLink>
         <HeroesList heroes={heroes} />
         <Pagination
           currentPage={currentPage}
