@@ -10,17 +10,17 @@ import { FormattedMessage } from 'react-intl';
 import api from 'api';
 import HeroesList from 'components/HeroesList';
 import Pagination from 'components/Pagination';
-import { LargeText, MediumText, SmallText } from 'components/Text';
+import { MediumText } from 'components/Text';
 import { IconLink } from 'components/Button';
 import SearchBar from 'components/SearchBar';
 import styled from 'styled-components';
 import hero from 'assets/icones/heroi/heroi.svg';
 import heart from 'assets/icones/heart/full.svg';
+import Layout from 'components/Layout';
+import MainHeader from 'components/Header/MainHeader';
 import messages from './messages';
 
-const HomeStyled = styled.div`
-  padding: 10%;
-`;
+const HomeStyled = styled.div``;
 
 export default function HomePage() {
   const limit = 20;
@@ -54,43 +54,40 @@ export default function HomePage() {
   }, [name]);
 
   return (
-    <HomeStyled>
-      <LargeText textTransform="uppercase" fontWeight="bold">
-        <FormattedMessage {...messages.header} />
-      </LargeText>
-      <SmallText colour="secondaryTextColour" textAlign="center">
-        <FormattedMessage {...messages.subHeader} />
-      </SmallText>
-      <FormattedMessage {...messages.search}>
-        {msg => (
-          <SearchBar
-            placeholder={msg}
-            onBlur={v => {
-              console.log(v.target.value);
-              setName(v.target.value);
-            }}
-          />
-        )}
-      </FormattedMessage>
-      <MediumText colour="tertiaryTextColour">
-        <FormattedMessage {...messages.found} values={{ value: heroCount }} />
-      </MediumText>
-      <IconLink icon={hero}>
-        <FormattedMessage {...messages.orderName} />
-      </IconLink>
-      <IconLink icon={heart}>
-        <FormattedMessage {...messages.favourite} />
-      </IconLink>
-      <HeroesList heroes={heroes} />
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={v => {
-          console.log(v);
-          setCurrentPage(v);
-        }}
-        heroCount={heroCount}
-        limit={limit}
-      />
-    </HomeStyled>
+    <Layout>
+      <HomeStyled>
+        <MainHeader messages={messages} />
+        <FormattedMessage {...messages.search}>
+          {msg => (
+            <SearchBar
+              placeholder={msg}
+              onBlur={v => {
+                console.log(v.target.value);
+                setName(v.target.value);
+              }}
+            />
+          )}
+        </FormattedMessage>
+        <MediumText colour="tertiaryTextColour">
+          <FormattedMessage {...messages.found} values={{ value: heroCount }} />
+        </MediumText>
+        <IconLink icon={hero}>
+          <FormattedMessage {...messages.orderName} />
+        </IconLink>
+        <IconLink icon={heart}>
+          <FormattedMessage {...messages.favourite} />
+        </IconLink>
+        <HeroesList heroes={heroes} />
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={v => {
+            console.log(v);
+            setCurrentPage(v);
+          }}
+          heroCount={heroCount}
+          limit={limit}
+        />
+      </HomeStyled>
+    </Layout>
   );
 }

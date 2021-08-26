@@ -7,7 +7,7 @@ import device from 'config/devices';
 
 const SearchBarStyled = styled.div`
   width: 100%;
-  height: 55px;
+  height: 45px;
   background-color: ${props => props.backgroundColour};
   border-radius: 55px;
   display: flex;
@@ -24,13 +24,20 @@ const SearchBarStyled = styled.div`
   }
 
   & > img {
-    margin-right: 30px;
-    width: 23px;
+    margin-right: 20px;
+    width: 20px;
   }
 
   @media ${device.tablet} {
+    height: 55px;
+
     & > input {
       font-size: 18px;
+    }
+
+    & > img {
+      margin-right: 30px;
+      width: 23px;
     }
   }
 `;
