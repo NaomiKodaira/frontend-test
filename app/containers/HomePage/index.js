@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import api from 'api';
 import HeroesList from 'components/HeroesList';
+import Pagination from 'components/Pagination';
 import { LargeText, MediumText, SmallText } from 'components/Text';
 import { IconLink } from 'components/Button';
 import SearchBar from 'components/SearchBar';
@@ -22,12 +23,14 @@ const HomeStyled = styled.div`
 `;
 
 export default function HomePage() {
+  const limit = 20;
   const [heroCount, setHeroCount] = useState(0);
   const [heroes, setHeroes] = useState(undefined);
   const [name, setName] = useState(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
 
   async function getProposalsList() {
-    const filters = {};
+    const filters = { limit, offset: (currentPage - 1) * limit };
     if (name) filters.nameStartsWith = name;
 
     await api
@@ -42,6 +45,11 @@ export default function HomePage() {
   }
 
   useEffect(() => {
+    getProposalsList();
+  }, [currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
     getProposalsList();
   }, [name]);
 
@@ -74,6 +82,15 @@ export default function HomePage() {
         <FormattedMessage {...messages.favourite} />
       </IconLink>
       <HeroesList heroes={heroes} />
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={v => {
+          console.log(v);
+          setCurrentPage(v);
+        }}
+        heroCount={heroCount}
+        limit={limit}
+      />
     </HomeStyled>
   );
 }
