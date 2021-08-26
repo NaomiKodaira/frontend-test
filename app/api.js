@@ -8,6 +8,7 @@ instance.interceptors.request.use(
   model => {
     const interceptor = model;
     interceptor.params = {
+      ...interceptor.params,
       apikey: '482119ad957e5be061d5b3d2181844a3',
     };
     return interceptor;
@@ -15,8 +16,8 @@ instance.interceptors.request.use(
   error => Promise.reject(error),
 );
 const api = {
-  getCharacters: () =>
-    instance.get(`/characters`).then(response => response.data),
+  getCharacters: params =>
+    instance.get(`/characters`, { params }).then(response => response.data),
 };
 
 export default api;

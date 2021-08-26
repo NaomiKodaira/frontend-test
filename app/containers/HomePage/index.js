@@ -24,10 +24,14 @@ const HomeStyled = styled.div`
 export default function HomePage() {
   const [heroCount, setHeroCount] = useState(0);
   const [heroes, setHeroes] = useState(undefined);
+  const [name, setName] = useState(undefined);
 
   async function getProposalsList() {
+    const filters = {};
+    if (name) filters.nameStartsWith = name;
+
     await api
-      .getCharacters()
+      .getCharacters(filters)
       .then(response => {
         setHeroCount(response.data.total);
         setHeroes(response.data.results);
@@ -39,7 +43,7 @@ export default function HomePage() {
 
   useEffect(() => {
     getProposalsList();
-  }, []);
+  }, [name]);
 
   return (
     <HomeStyled>
@@ -50,7 +54,15 @@ export default function HomePage() {
         <FormattedMessage {...messages.subHeader} />
       </SmallText>
       <FormattedMessage {...messages.search}>
-        {msg => <SearchBar placeholder={msg} />}
+        {msg => (
+          <SearchBar
+            placeholder={msg}
+            onBlur={v => {
+              console.log(v.target.value);
+              setName(v.target.value);
+            }}
+          />
+        )}
       </FormattedMessage>
       <MediumText colour="tertiaryTextColour">
         <FormattedMessage {...messages.found} values={{ value: heroCount }} />

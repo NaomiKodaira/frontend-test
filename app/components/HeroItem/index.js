@@ -19,6 +19,10 @@ const HeroItemStyled = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 15px 0;
+
+    & > p {
+      margin-right: 10px;
+    }
   }
 `;
 

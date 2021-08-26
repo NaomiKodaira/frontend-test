@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import outline from 'assets/icones/heart/outline.svg';
@@ -29,11 +29,15 @@ const FavouriteStyled = styled.button`
 
 function Favourite(props) {
   const { heroId } = props;
-  const [isFavourite, setIsFavourite] = useState(
-    (JSON.parse(localStorage.getItem('favHeroes')) || []).find(
-      item => item === heroId,
-    ),
-  );
+  const [isFavourite, setIsFavourite] = useState(undefined);
+
+  useEffect(() => {
+    setIsFavourite(
+      (JSON.parse(localStorage.getItem('favHeroes')) || []).find(
+        item => item === heroId,
+      ),
+    );
+  }, [heroId]);
 
   const setFavourite = () => {
     let currentFav = JSON.parse(localStorage.getItem('favHeroes')) || [];
