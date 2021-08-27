@@ -24,9 +24,9 @@ const IconLinkStyled = styled.button`
     position: absolute;
     background-color: ${colours.primaryColour};
     height: 2px;
-    width: 0px;
+    width: ${props => (props.active && '100%') || '0px'};
     display: block;
-    opacity: 0;
+    opacity: ${props => (props.active && '1') || '0'};
     transition: width 250ms, opacity 250ms;
   }
 
@@ -45,9 +45,9 @@ const IconLinkStyled = styled.button`
 `;
 
 function IconLink(props) {
-  const { text, children, icon, alt, onClick } = props;
+  const { text, children, icon, alt, onClick, active } = props;
   return (
-    <IconLinkStyled onClick={onClick}>
+    <IconLinkStyled onClick={onClick} active={active}>
       {icon && <img src={icon} alt={alt} />}
       <SmallText colour="primaryColour">{children || text}</SmallText>
     </IconLinkStyled>
@@ -63,6 +63,7 @@ IconLink.propTypes = {
   icon: PropTypes.string,
   alt: PropTypes.string,
   onClick: PropTypes.func,
+  active: PropTypes.bool,
 };
 
 export default IconLink;

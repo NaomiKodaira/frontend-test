@@ -25,6 +25,10 @@ export default defineMessages({
     id: `${scope}.orderName`,
     defaultMessage: 'Ordernar por nome - A/Z',
   },
+  orderModified: {
+    id: `${scope}.orderModified`,
+    defaultMessage: 'Ordernar por recentemente',
+  },
   favourite: {
     id: `${scope}.favourite`,
     defaultMessage: 'Somente favoritos',

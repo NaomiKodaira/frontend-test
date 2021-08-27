@@ -16,7 +16,10 @@ const MediumText = styled.p`
 `;
 
 MediumText.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   colour: PropTypes.string,
   fontWeight: PropTypes.string,
 };

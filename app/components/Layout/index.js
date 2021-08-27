@@ -23,7 +23,10 @@ function Layout(props) {
 }
 
 Layout.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 export default Layout;

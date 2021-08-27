@@ -17,7 +17,10 @@ const LargeText = styled.p`
 `;
 
 LargeText.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   colour: PropTypes.string,
   fontWeight: PropTypes.string,
   textTransform: PropTypes.string,

@@ -22,7 +22,10 @@ const LargeText = styled.h1`
 `;
 
 LargeText.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   colour: PropTypes.string,
   fontWeight: PropTypes.string,
   textAlign: PropTypes.string,

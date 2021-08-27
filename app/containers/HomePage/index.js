@@ -11,7 +11,7 @@ import api from 'api';
 import HeroesList from 'components/HeroesList';
 import Pagination from 'components/Pagination';
 import { MediumText } from 'components/Text';
-import { IconLink } from 'components/Button';
+import { IconLink, TextToggle } from 'components/Toggle';
 import SearchBar from 'components/SearchBar';
 import styled from 'styled-components';
 import hero from 'assets/icones/heroi/heroi.svg';
@@ -96,14 +96,25 @@ export default function HomePage() {
           )}
         </FormattedMessage>
         <IconLink
-          icon={hero}
-          onClick={() => setOrder((order === 'name' && 'modified') || 'name')}
+          icon={heart}
+          onClick={() => setOnlyFavs(!onlyFavs)}
+          active={onlyFavs}
         >
-          <FormattedMessage {...messages.orderName} />
-        </IconLink>
-        <IconLink icon={heart} onClick={() => setOnlyFavs(!onlyFavs)}>
           <FormattedMessage {...messages.favourite} />
         </IconLink>
+        <TextToggle
+          icon={hero}
+          left={order === 'name'}
+          setLeft={left => {
+            if (left) {
+              setOrder('name');
+            } else {
+              setOrder('modified');
+            }
+          }}
+          leftText={<FormattedMessage {...messages.orderName} />}
+          rightText={<FormattedMessage {...messages.orderModified} />}
+        />
         <MediumText colour="tertiaryTextColour">
           <FormattedMessage {...messages.found} values={{ value: heroCount }} />
         </MediumText>
