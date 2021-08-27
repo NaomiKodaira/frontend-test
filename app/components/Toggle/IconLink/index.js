@@ -8,7 +8,7 @@ const IconLinkStyled = styled.button`
   padding: 0;
   background-color: transparent;
   border: none;
-  height: 40px;
+  min-height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -6,12 +6,13 @@ import search from 'assets/busca/Lupa/search.svg';
 import device from 'config/devices';
 
 const SearchBarStyled = styled.div`
-  width: 100%;
+  width: ${props => props.width};
   height: 45px;
   background-color: ${props => props.backgroundColour};
   border-radius: 55px;
   display: flex;
   padding: 0 20px;
+  margin: auto;
 
   & > input {
     width: 100%;
@@ -43,11 +44,19 @@ const SearchBarStyled = styled.div`
 `;
 
 function SearchBar(props) {
-  const { placeholder, backgroundColour, textColour, onChange, onBlur } = props;
+  const {
+    placeholder,
+    backgroundColour,
+    textColour,
+    onChange,
+    onBlur,
+    width,
+  } = props;
   return (
     <SearchBarStyled
       backgroundColour={backgroundColour}
       textColour={textColour}
+      width={width}
     >
       <img src={search} alt="Search" />
       <input
@@ -66,6 +75,7 @@ SearchBar.propTypes = {
   textColour: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
+  width: PropTypes.string,
 };
 
 SearchBar.defaultProps = {
@@ -73,6 +83,7 @@ SearchBar.defaultProps = {
   textColour: colours.primaryColour,
   onChange: () => {},
   onBlur: () => {},
+  width: '100%',
 };
 
 export default SearchBar;

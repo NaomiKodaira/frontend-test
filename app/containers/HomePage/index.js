@@ -1,10 +1,3 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- *
- */
-
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import api from 'api';
@@ -18,9 +11,48 @@ import hero from 'assets/icones/heroi/heroi.svg';
 import heart from 'assets/icones/heart/full.svg';
 import Layout from 'components/Layout';
 import MainHeader from 'components/Header/MainHeader';
+import device, { size } from 'config/devices';
+import useWindowSize from 'utils/useWindowSize';
 import messages from './messages';
 
-const HomeStyled = styled.div``;
+const FiltersStyled = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+
+  & > * {
+    margin: 5px 0;
+  }
+
+  & > div {
+    order: -1;
+  }
+
+  @media ${device.tablet} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      '. fav'
+      'found order';
+    margin: 15px 0 5px;
+
+    & > div {
+      grid-area: order;
+      justify-self: end;
+    }
+
+    & > button {
+      grid-area: fav;
+      justify-self: end;
+    }
+
+    & > p {
+      grid-area: found;
+    }
+  }
+`;
 
 export default function HomePage() {
   const limit = 20;
@@ -30,6 +62,8 @@ export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [order, setOrder] = useState('name');
   const [onlyFavs, setOnlyFavs] = useState(false);
+
+  const windowSize = useWindowSize();
 
   const setFilters = () => {
     const filters = { limit, offset: (currentPage - 1) * limit };
@@ -82,53 +116,55 @@ export default function HomePage() {
 
   return (
     <Layout>
-      <HomeStyled>
+      <div>
         <MainHeader messages={messages} />
         <FormattedMessage {...messages.search}>
           {msg => (
             <SearchBar
               placeholder={msg}
               onBlur={v => {
-                console.log(v.target.value);
                 setName(v.target.value);
               }}
+              width={(windowSize.width < size.tablet && '100%') || '90%'}
             />
           )}
         </FormattedMessage>
-        <IconLink
-          icon={heart}
-          onClick={() => setOnlyFavs(!onlyFavs)}
-          active={onlyFavs}
-        >
-          <FormattedMessage {...messages.favourite} />
-        </IconLink>
-        <TextToggle
-          icon={hero}
-          left={order === 'name'}
-          setLeft={left => {
-            if (left) {
-              setOrder('name');
-            } else {
-              setOrder('modified');
-            }
-          }}
-          leftText={<FormattedMessage {...messages.orderName} />}
-          rightText={<FormattedMessage {...messages.orderModified} />}
-        />
-        <MediumText colour="tertiaryTextColour">
-          <FormattedMessage {...messages.found} values={{ value: heroCount }} />
-        </MediumText>
+        <FiltersStyled>
+          <IconLink
+            icon={heart}
+            onClick={() => setOnlyFavs(!onlyFavs)}
+            active={onlyFavs}
+          >
+            <FormattedMessage {...messages.favourite} />
+          </IconLink>
+          <TextToggle
+            icon={hero}
+            left={order === 'name'}
+            setLeft={left => {
+              if (left) {
+                setOrder('name');
+              } else {
+                setOrder('modified');
+              }
+            }}
+            leftText={<FormattedMessage {...messages.orderName} />}
+            rightText={<FormattedMessage {...messages.orderModified} />}
+          />
+          <MediumText colour="tertiaryTextColour">
+            <FormattedMessage
+              {...messages.found}
+              values={{ value: heroCount }}
+            />
+          </MediumText>
+        </FiltersStyled>
         <HeroesList heroes={heroes} />
         <Pagination
           currentPage={currentPage}
-          setCurrentPage={v => {
-            console.log(v);
-            setCurrentPage(v);
-          }}
+          setCurrentPage={v => setCurrentPage(v)}
           heroCount={heroCount}
           limit={limit}
         />
-      </HomeStyled>
+      </div>
     </Layout>
   );
 }
