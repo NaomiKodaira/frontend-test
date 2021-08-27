@@ -18,6 +18,8 @@ instance.interceptors.request.use(
 const api = {
   getCharacters: params =>
     instance.get(`/characters`, { params }).then(response => response.data),
+  getCharacter: heroId =>
+    instance.get(`/characters/${heroId}`).then(response => response.data),
 };
 
 export default api;
