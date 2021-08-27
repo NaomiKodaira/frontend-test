@@ -145,8 +145,8 @@ export default function HomePage() {
           {msg => (
             <SearchBar
               placeholder={msg}
-              onBlur={v => {
-                setName(v.target.value);
+              onSearch={value => {
+                setName(value);
               }}
               width={(windowSize.width < size.tablet && '100%') || '90%'}
             />

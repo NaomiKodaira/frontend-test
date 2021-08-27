@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import colours from 'config/colours';
 import search from 'assets/busca/Lupa/search.svg';
 import device from 'config/devices';
+import { IconButton } from 'components/Button';
 
 const SearchBarStyled = styled.div`
   width: ${props => props.width};
@@ -11,6 +12,7 @@ const SearchBarStyled = styled.div`
   background-color: ${props => props.backgroundColour};
   border-radius: 55px;
   display: flex;
+  align-items: center;
   padding: 0 20px;
   margin: auto;
 
@@ -24,7 +26,7 @@ const SearchBarStyled = styled.div`
     font-size: 16px;
   }
 
-  & > img {
+  & > button {
     margin-right: 20px;
     width: 20px;
   }
@@ -36,7 +38,7 @@ const SearchBarStyled = styled.div`
       font-size: 18px;
     }
 
-    & > img {
+    & > button {
       margin-right: 30px;
       width: 23px;
     }
@@ -50,20 +52,38 @@ function SearchBar(props) {
     textColour,
     onChange,
     onBlur,
+    onSearch,
     width,
   } = props;
+
+  const [value, setValue] = useState('');
+
   return (
     <SearchBarStyled
       backgroundColour={backgroundColour}
       textColour={textColour}
       width={width}
     >
-      <img src={search} alt="Search" />
+      <IconButton
+        icon={search}
+        alt="Search"
+        onClick={() => onSearch(value)}
+        height="25px"
+      />
       <input
         type="text"
         placeholder={placeholder}
-        onChange={onChange}
+        onChange={v => {
+          onChange(v);
+          setValue(v.target.value);
+        }}
+        onKeyDown={v => {
+          if (v.key === 'Enter') {
+            onSearch(value);
+          }
+        }}
         onBlur={onBlur}
+        value={value}
       />
     </SearchBarStyled>
   );
@@ -75,6 +95,7 @@ SearchBar.propTypes = {
   textColour: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
+  onSearch: PropTypes.func.isRequired,
   width: PropTypes.string,
 };
 

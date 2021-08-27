@@ -5,6 +5,7 @@ import colours from 'config/colours';
 import device from 'config/devices';
 import { MediumText } from 'components/Text';
 import arrow from 'assets/icones/arrow/arrow.svg';
+import { IconButton } from 'components/Button';
 
 const PaginationStyled = styled.div`
   display: flex;
@@ -79,9 +80,11 @@ function Pagination(props) {
 
   return (
     <PaginationStyled>
-      <button type="button" onClick={() => changePage(currentPage - 1)}>
-        <img src={arrow} alt="Página anterior" />
-      </button>
+      <IconButton
+        onClick={() => changePage(currentPage - 1)}
+        icon={arrow}
+        alt="Página anterior"
+      />
       <input
         type="number"
         value={display}
@@ -91,9 +94,11 @@ function Pagination(props) {
         onBlur={v => changePage(parseInt(v.target.value, 10))}
       />
       <MediumText> de {maxPage}</MediumText>
-      <button type="button" onClick={() => changePage(currentPage + 1)}>
-        <img src={arrow} alt="Próxima página" />
-      </button>
+      <IconButton
+        onClick={() => changePage(currentPage + 1)}
+        icon={arrow}
+        alt="Próxima página"
+      />
     </PaginationStyled>
   );
 }
