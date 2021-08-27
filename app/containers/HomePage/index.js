@@ -31,12 +31,13 @@ const FiltersStyled = styled.div`
 
   @media ${device.tablet} {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto auto;
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
       '. fav'
       'found order';
     margin: 15px 0 5px;
+    column-gap: 15px;
 
     & > div {
       grid-area: order;

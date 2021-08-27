@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import colours from 'config/colours';
 import device from 'config/devices';
 import { MediumText } from 'components/Text';
+import arrow from 'assets/icones/arrow/arrow.svg';
 
 const PaginationStyled = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,
@@ -35,6 +37,24 @@ const PaginationStyled = styled.div`
       font-size: 18px;
     }
   }
+
+  & > button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    height: 20px;
+    margin: 0 5px;
+
+    & > img {
+      height: 100%;
+    }
+  }
+
+  & > button:first-of-type {
+    transform: rotate(180deg);
+  }
 `;
 
 function Pagination(props) {
@@ -59,7 +79,9 @@ function Pagination(props) {
 
   return (
     <PaginationStyled>
-      <button type="button" onClick={() => changePage(currentPage - 1)} />
+      <button type="button" onClick={() => changePage(currentPage - 1)}>
+        <img src={arrow} alt="Página anterior" />
+      </button>
       <input
         type="number"
         value={display}
@@ -69,7 +91,9 @@ function Pagination(props) {
         onBlur={v => changePage(parseInt(v.target.value, 10))}
       />
       <MediumText> de {maxPage}</MediumText>
-      <button type="button" onClick={() => changePage(currentPage + 1)} />
+      <button type="button" onClick={() => changePage(currentPage + 1)}>
+        <img src={arrow} alt="Próxima página" />
+      </button>
     </PaginationStyled>
   );
 }
