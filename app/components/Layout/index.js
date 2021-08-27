@@ -5,8 +5,11 @@ import Footer from 'components/Footer';
 
 const LayoutStyled = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: #ffffff;
+  display: grid;
+  grid-template-rows: 1fr auto;
+
   & > main {
     padding: 5% 10% 10%;
   }
