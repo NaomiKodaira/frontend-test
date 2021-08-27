@@ -63,6 +63,7 @@ export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [order, setOrder] = useState('name');
   const [onlyFavs, setOnlyFavs] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const windowSize = useWindowSize();
 
@@ -75,7 +76,7 @@ export default function HomePage() {
 
   async function getHeroesList() {
     const filters = setFilters();
-
+    setLoading(true);
     await api
       .getCharacters(filters)
       .then(response => {
@@ -84,11 +85,16 @@ export default function HomePage() {
       })
       .catch(err => {
         console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
   function getHeroesFav() {
     const filters = setFilters();
+    setLoading(true);
+
     let favs = JSON.parse(localStorage.getItem('favHeroes'));
 
     if (filters.nameStartsWith) {
@@ -115,6 +121,7 @@ export default function HomePage() {
 
     setHeroCount(favs.length);
     setHeroes(favs);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -180,7 +187,7 @@ export default function HomePage() {
             />
           </MediumText>
         </FiltersStyled>
-        <HeroesList heroes={heroes} />
+        <HeroesList heroes={heroes} loading={loading} />
         <Pagination
           currentPage={currentPage}
           setCurrentPage={v => setCurrentPage(v)}

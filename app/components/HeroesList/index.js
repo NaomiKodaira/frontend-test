@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import HeroItem from 'components/HeroItem';
 import device from 'config/devices';
+import { MediumText } from 'components/Text';
 
 const HeroesListStyled = styled.div`
   display: grid;
@@ -23,19 +24,21 @@ const HeroesListStyled = styled.div`
 `;
 
 function HeroesList(props) {
-  const { heroes } = props;
+  const { heroes, loading } = props;
 
   return (
     <HeroesListStyled total={heroes && heroes.length}>
-      {heroes &&
-        heroes.length !== 0 &&
-        heroes.map(item => <HeroItem data={item} />)}
+      {(loading && <MediumText>Carregando...</MediumText>) ||
+        (heroes &&
+          heroes.length !== 0 &&
+          heroes.map(item => <HeroItem data={item} />))}
     </HeroesListStyled>
   );
 }
 
 HeroesList.propTypes = {
   heroes: PropTypes.object,
+  loading: PropTypes.bool,
 };
 
 export default HeroesList;
