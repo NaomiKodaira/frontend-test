@@ -88,9 +88,31 @@ export default function HomePage() {
   }
 
   function getHeroesFav() {
-    // const filters = setFilters();
+    const filters = setFilters();
+    let favs = JSON.parse(localStorage.getItem('favHeroes'));
 
-    const favs = JSON.parse(localStorage.getItem('favHeroes'));
+    if (filters.nameStartsWith) {
+      favs = favs.filter(item =>
+        item.name
+          .toLowerCase()
+          .startsWith(filters.nameStartsWith.toLowerCase()),
+      );
+    }
+
+    if (filters.orderBy === 'name') {
+      favs.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      });
+    } else if (filters.orderBy === 'modified') {
+      favs.sort((a, b) => new Date(b.modified) - new Date(a.modified));
+    }
+
     setHeroCount(favs.length);
     setHeroes(favs);
   }
