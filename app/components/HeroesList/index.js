@@ -31,7 +31,7 @@ function HeroesList(props) {
       {(loading && <MediumText>Carregando...</MediumText>) ||
         (heroes &&
           heroes.length !== 0 &&
-          heroes.map(item => <HeroItem data={item} />))}
+          heroes.map(item => <HeroItem data={item} id={item.id} />))}
     </HeroesListStyled>
   );
 }

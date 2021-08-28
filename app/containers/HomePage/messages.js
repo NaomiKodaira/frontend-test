@@ -17,10 +17,6 @@ export default defineMessages({
     defaultMessage:
       'Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!',
   },
-  search: {
-    id: `${scope}.search`,
-    defaultMessage: 'Procure por heróis',
-  },
   orderName: {
     id: `${scope}.orderName`,
     defaultMessage: 'Ordernar por nome - A/Z',

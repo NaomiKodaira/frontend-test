@@ -145,20 +145,15 @@ export default function HomePage() {
   }, [name, onlyFavs, order]);
 
   return (
-    <Layout>
+    <Layout hideHeader>
       <div>
         <MainHeader messages={messages} />
-        <FormattedMessage {...messages.search}>
-          {msg => (
-            <SearchBar
-              placeholder={msg}
-              onSearch={value => {
-                setName(value);
-              }}
-              width={(windowSize.width < size.tablet && '100%') || '90%'}
-            />
-          )}
-        </FormattedMessage>
+        <SearchBar
+          onSearch={value => {
+            setName(value);
+          }}
+          width={(windowSize.width < size.tablet && '100%') || '90%'}
+        />
         <FiltersStyled>
           <IconLink
             icon={heart}

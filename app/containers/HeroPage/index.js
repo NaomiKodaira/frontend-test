@@ -5,6 +5,7 @@ import api from 'api';
 import { MediumText } from 'components/Text';
 // import styled from 'styled-components';
 import Layout from 'components/Layout';
+import colours from 'config/colours';
 
 // const HeroPageStyled = styled.div``;
 
@@ -34,7 +35,7 @@ export default function HeroPage(props) {
   }, []);
 
   return (
-    <Layout>
+    <Layout backgroundColour={colours.accentColour}>
       <div>
         <MediumText>Hero Page {heroId}</MediumText>
         <MediumText>{JSON.stringify(hero)}</MediumText>

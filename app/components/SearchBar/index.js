@@ -5,6 +5,8 @@ import colours from 'config/colours';
 import search from 'assets/busca/Lupa/search.svg';
 import device from 'config/devices';
 import { IconButton } from 'components/Button';
+import { injectIntl, intlShape } from 'react-intl';
+import messages from './messages';
 
 const SearchBarStyled = styled.div`
   width: ${props => props.width};
@@ -13,7 +15,7 @@ const SearchBarStyled = styled.div`
   border-radius: 55px;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: ${props => (props.small && '0 15px') || '0 20px'};
   margin: auto;
 
   & > input {
@@ -27,12 +29,12 @@ const SearchBarStyled = styled.div`
   }
 
   & > button {
-    margin-right: 20px;
+    margin-right: ${props => (props.small && '15px') || '20px'};
     width: 20px;
   }
 
   @media ${device.tablet} {
-    height: 55px;
+    height: ${props => (props.small && '45px') || '55px'};
 
     & > input {
       font-size: 18px;
@@ -54,6 +56,8 @@ function SearchBar(props) {
     onBlur,
     onSearch,
     width,
+    small,
+    intl,
   } = props;
 
   const [value, setValue] = useState('');
@@ -63,16 +67,17 @@ function SearchBar(props) {
       backgroundColour={backgroundColour}
       textColour={textColour}
       width={width}
+      small={small}
     >
       <IconButton
         icon={search}
         alt="Search"
         onClick={() => onSearch(value)}
-        height="25px"
+        height={(small && '20px') || '25px'}
       />
       <input
         type="text"
-        placeholder={placeholder}
+        placeholder={placeholder || intl.formatMessage(messages.search)}
         onChange={v => {
           onChange(v);
           setValue(v.target.value);
@@ -97,6 +102,8 @@ SearchBar.propTypes = {
   onBlur: PropTypes.func,
   onSearch: PropTypes.func.isRequired,
   width: PropTypes.string,
+  intl: intlShape.isRequired,
+  small: PropTypes.bool,
 };
 
 SearchBar.defaultProps = {
@@ -107,4 +114,4 @@ SearchBar.defaultProps = {
   width: '100%',
 };
 
-export default SearchBar;
+export default injectIntl(SearchBar);
