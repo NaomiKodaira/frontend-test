@@ -7,6 +7,7 @@ import { MediumText, LargeText } from 'components/Text';
 import Layout from 'components/Layout';
 import colours from 'config/colours';
 import ComicList from 'components/ComicList';
+import HeroDetail from 'components/HeroDetail';
 import messages from './messages';
 // const HeroPageStyled = styled.div``;
 
@@ -14,8 +15,8 @@ export default function HeroPage(props) {
   const { match } = props;
   const { heroId } = match.params;
 
-  const [hero, setHero] = useState({});
-  const [comics, setComics] = useState([]);
+  const [hero, setHero] = useState(undefined);
+  const [comics, setComics] = useState(undefined);
 
   async function getHero() {
     // setLoading(true);
@@ -32,7 +33,7 @@ export default function HeroPage(props) {
       });
 
     await api
-      .getCharacterComics(heroId, { orderBy: 'onsaleDate', limit: '10' })
+      .getCharacterComics(heroId, { orderBy: '-onsaleDate', limit: '10' })
       .then(response => {
         setComics(response.data.results);
       })
@@ -50,6 +51,13 @@ export default function HeroPage(props) {
 
   return (
     <Layout backgroundColour={colours.accentColour}>
+      <HeroDetail
+        hero={hero}
+        lastComic={
+          comics &&
+          comics[0].dates.find(item => item.type === 'onsaleDate').date
+        }
+      />
       <div>
         <MediumText>Hero Page {heroId}</MediumText>
         <MediumText>{JSON.stringify(hero)}</MediumText>
