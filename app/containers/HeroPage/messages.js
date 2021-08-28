@@ -5,36 +5,27 @@
  */
 import { defineMessages } from 'react-intl';
 
-export const scope = 'app.containers.HomePage';
+export const scope = 'app.containers.HeroPage';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'Explore o universo',
+  comics: {
+    id: `${scope}.comics`,
+    defaultMessage: 'Quadrinhos',
   },
-  subHeader: {
-    id: `${scope}.subHeader`,
-    defaultMessage:
-      'Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!',
+  movies: {
+    id: `${scope}.movies`,
+    defaultMessage: 'Filmes',
   },
-  search: {
-    id: `${scope}.search`,
-    defaultMessage: 'Procure por heróis',
+  rating: {
+    id: `${scope}.rating`,
+    defaultMessage: 'Rating:',
   },
-  orderName: {
-    id: `${scope}.orderName`,
-    defaultMessage: 'Ordernar por nome - A/Z',
+  lastComic: {
+    id: `${scope}.lastComic`,
+    defaultMessage: 'Último quadrinho:',
   },
-  orderModified: {
-    id: `${scope}.orderModified`,
-    defaultMessage: 'Ordernar por recentemente',
-  },
-  favourite: {
-    id: `${scope}.favourite`,
-    defaultMessage: 'Somente favoritos',
-  },
-  found: {
-    id: `${scope}.found`,
-    defaultMessage: 'Encontrados {value} heróis',
+  lastComicList: {
+    id: `${scope}.lastComicList`,
+    defaultMessage: 'Últimos lançamentos',
   },
 });

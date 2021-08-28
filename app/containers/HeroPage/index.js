@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import api from 'api';
-import { MediumText } from 'components/Text';
+import { MediumText, LargeText } from 'components/Text';
 // import styled from 'styled-components';
 import Layout from 'components/Layout';
 import colours from 'config/colours';
-
+import ComicList from 'components/ComicList';
+import messages from './messages';
 // const HeroPageStyled = styled.div``;
 
 export default function HeroPage(props) {
@@ -14,6 +15,7 @@ export default function HeroPage(props) {
   const { heroId } = match.params;
 
   const [hero, setHero] = useState({});
+  const [comics, setComics] = useState([]);
 
   async function getHero() {
     // setLoading(true);
@@ -21,6 +23,18 @@ export default function HeroPage(props) {
       .getCharacter(heroId)
       .then(response => {
         setHero(response.data.results[0]);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+      .finally(() => {
+        // setLoading(false);
+      });
+
+    await api
+      .getCharacterComics(heroId, { orderBy: 'onsaleDate', limit: '10' })
+      .then(response => {
+        setComics(response.data.results);
       })
       .catch(err => {
         console.error(err);
@@ -40,6 +54,10 @@ export default function HeroPage(props) {
         <MediumText>Hero Page {heroId}</MediumText>
         <MediumText>{JSON.stringify(hero)}</MediumText>
       </div>
+      <LargeText fontWeight="bold">
+        <FormattedMessage {...messages.lastComicList} />
+      </LargeText>
+      <ComicList comics={comics} />
     </Layout>
   );
 }
