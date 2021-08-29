@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -11,30 +10,31 @@ const BackgroundNameStyled = styled.div`
   text-transform: uppercase;
   z-index: -1;
   overflow: hidden;
-  font-size: ${props => 100 / props.longestLength}vw;
+  font-size: ${props => 100 / props.fontSize.portrait}vw;
   width: 100%;
   text-align: right;
   top: 50%;
   transform: translateY(-50%);
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
-   -khtml-user-select: none; /* Konqueror HTML */
-     -moz-user-select: none; /* Old versions of Firefox */
-      -ms-user-select: none; /* Internet Explorer/Edge */
-          user-select: none; /* Non-prefixed version, currently
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                 supported by Chrome, Edge, Opera and Firefox */
 
   @media (orientation: landscape) {
-    font-size: ${props =>
-    100 /
-      (props.word.length < 10 ? props.word.length : props.word.length / 2)}vw;
+    font-size: ${props => 100 / props.fontSize.landscape}vw;
   }
 `;
 
 export default function BackgroundName(props) {
   const { word } = props;
 
-  const [longestLength, setLongestLength] = useState(undefined);
+  const [fontSize, setFontSize] = useState({
+    portrait: 1,
+    landscape: 1,
+  });
 
   function findLongestLength() {
     const wordArray = word.split(' ');
@@ -43,8 +43,12 @@ export default function BackgroundName(props) {
       if (currWord.length > currLongest.length) return currWord;
       return currLongest;
     }, '');
-    setLongestLength(longest.length);
-    // setLongestLength(word.length < 10 ? word.length : word.length / 2);
+
+    const wordLength = word.length < 10 ? word.length : word.length / 2;
+    setFontSize({
+      portrait: longest.length,
+      landscape: Math.max(wordLength, longest.length),
+    });
   }
 
   useEffect(() => {
@@ -52,9 +56,7 @@ export default function BackgroundName(props) {
   }, [word]);
 
   return (
-    <BackgroundNameStyled word={word} longestLength={longestLength}>
-      {word}
-    </BackgroundNameStyled>
+    <BackgroundNameStyled fontSize={fontSize}>{word}</BackgroundNameStyled>
   );
 }
 

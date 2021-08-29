@@ -24,6 +24,17 @@ const HeroDetailStyled = styled.div`
     & > div {
       width: 50%;
     }
+
+    & > button {
+      margin-left: 10px;
+    }
+  }
+
+  & > div:last-of-type {
+    justify-content: flex-start;
+    & > div {
+      margin-left: 10px;
+    }
   }
 `;
 
@@ -70,10 +81,12 @@ function HeroDetail(props) {
               alt="Icone Vídeo"
             />
           </div>
-          <SmallText fontWeight="bold">
-            {ratingText || intl.formatMessage(messages.rating)}
-          </SmallText>
-          <Rating />
+          <div>
+            <SmallText fontWeight="bold">
+              {ratingText || intl.formatMessage(messages.rating)}
+            </SmallText>
+            <Rating score={Math.random() * 5} />
+          </div>
           <SmallText>
             <b>{lastComicText || intl.formatMessage(messages.lastComic)}</b>{' '}
             {dateText}
