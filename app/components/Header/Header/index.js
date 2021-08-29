@@ -41,7 +41,7 @@ function Header(props) {
         backgroundColour="#ffffff"
         textColour={colours.primaryTextColour}
         small
-        onSearch={value => history.push(`/?search=${value}`)}
+        onSearch={value => history.push(`/?search=${value || ''}`)}
       />
     </HeaderStyled>
   );

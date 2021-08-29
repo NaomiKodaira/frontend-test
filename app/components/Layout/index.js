@@ -11,6 +11,7 @@ const LayoutStyled = styled.div`
   background-color: ${props => props.backgroundColour || '#ffffff'};
   display: grid;
   grid-template-rows: auto 1fr auto;
+  overflow: hidden;
 
   & > div,
   & > header,

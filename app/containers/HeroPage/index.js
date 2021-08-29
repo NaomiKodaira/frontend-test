@@ -6,10 +6,10 @@ import { LargeText } from 'components/Text';
 import styled from 'styled-components';
 import Layout from 'components/Layout';
 import colours from 'config/colours';
-import device from 'config/devices';
 import ComicList from 'components/ComicList';
 import HeroDetail from 'components/HeroDetail';
 import BackgroundWord from 'components/BackgroundWord';
+// import ImageMosaic from 'components/ImageMosaic';
 import messages from './messages';
 
 const HeroPageStyled = styled.div`
@@ -22,7 +22,20 @@ const HeroPageStyled = styled.div`
 
   & > div:first-child {
     width: 100%;
+    height: 100%;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    & > div:first-child {
+      width: 100%;
+    }
+
+    & > div:nth-child(2) {
+      height: 100%;
+      display: none;
+    }
   }
 
   & > div:last-child {
@@ -33,10 +46,17 @@ const HeroPageStyled = styled.div`
     }
   }
 
-  @media ${device.tablet} {
+  @media (orientation: landscape) {
     & > div:first-child {
-      & > div:last-child {
+      align-items: center;
+
+      & > div:first-child {
         width: 30%;
+        height: fit-content;
+      }
+      & > div:nth-child(2) {
+        width: 70%;
+        display: block;
       }
     }
   }
@@ -84,14 +104,16 @@ export default function HeroPage(props) {
     <Layout backgroundColour={colours.accentColour}>
       <HeroPageStyled>
         <div>
-          {hero && <BackgroundWord word={hero.name} />}
           <HeroDetail
             hero={hero}
             lastComic={
               comics &&
+              comics.length !== 0 &&
               comics[0].dates.find(item => item.type === 'onsaleDate').date
             }
           />
+          <div>{/* <ImageMosaic data={hero} /> */}</div>
+          {hero && <BackgroundWord word={hero.name} />}
         </div>
         <div>
           <LargeText fontWeight="bold">
