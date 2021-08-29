@@ -5,11 +5,13 @@ import { MediumText } from 'components/Text';
 
 const ComicItemStyled = styled.div`
   width: 100%;
+  max-width: 200px;
 
-  /* & > img {
+  & > img {
+    width: 100%;
     margin: auto;
     display: block;
-  } */
+  }
 `;
 
 function ComicItem(props) {

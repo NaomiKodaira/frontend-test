@@ -13,22 +13,15 @@ const LayoutStyled = styled.div`
   grid-template-rows: auto 1fr auto;
 
   & > main {
-    padding: 40px 10% 80px;
+    margin: 40px 10% 80px;
   }
-
-  ${props =>
-    props.hideHeader &&
-    `& > header {
-        display: none;
-      }
-  `}
 `;
 
 function Layout(props) {
   const { children, backgroundColour, hideHeader } = props;
   return (
     <LayoutStyled backgroundColour={backgroundColour} hideHeader={hideHeader}>
-      <Header />
+      {(!hideHeader && <Header />) || <div />}
       <main>{children}</main>
       <Footer />
     </LayoutStyled>

@@ -9,7 +9,7 @@ const HeaderStyled = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 5% 0;
+  margin: 40px 5% 0;
 
   & > svg {
     min-width: 100px;

@@ -2,14 +2,45 @@ import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import api from 'api';
-import { MediumText, LargeText } from 'components/Text';
-// import styled from 'styled-components';
+import { LargeText } from 'components/Text';
+import styled from 'styled-components';
 import Layout from 'components/Layout';
 import colours from 'config/colours';
+import device from 'config/devices';
 import ComicList from 'components/ComicList';
 import HeroDetail from 'components/HeroDetail';
+import BackgroundWord from 'components/BackgroundWord';
 import messages from './messages';
-// const HeroPageStyled = styled.div``;
+
+const HeroPageStyled = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  z-index: 1;
+
+  & > div:first-child {
+    width: 100%;
+    position: relative;
+  }
+
+  & > div:last-child {
+    margin-top: 30px;
+
+    & > p {
+      margin-bottom: 10px;
+    }
+  }
+
+  @media ${device.tablet} {
+    & > div:first-child {
+      & > div:last-child {
+        width: 30%;
+      }
+    }
+  }
+`;
 
 export default function HeroPage(props) {
   const { match } = props;
@@ -51,21 +82,24 @@ export default function HeroPage(props) {
 
   return (
     <Layout backgroundColour={colours.accentColour}>
-      <HeroDetail
-        hero={hero}
-        lastComic={
-          comics &&
-          comics[0].dates.find(item => item.type === 'onsaleDate').date
-        }
-      />
-      <div>
-        <MediumText>Hero Page {heroId}</MediumText>
-        <MediumText>{JSON.stringify(hero)}</MediumText>
-      </div>
-      <LargeText fontWeight="bold">
-        <FormattedMessage {...messages.lastComicList} />
-      </LargeText>
-      <ComicList comics={comics} />
+      <HeroPageStyled>
+        <div>
+          {hero && <BackgroundWord word={hero.name} />}
+          <HeroDetail
+            hero={hero}
+            lastComic={
+              comics &&
+              comics[0].dates.find(item => item.type === 'onsaleDate').date
+            }
+          />
+        </div>
+        <div>
+          <LargeText fontWeight="bold">
+            <FormattedMessage {...messages.lastComicList} />
+          </LargeText>
+          <ComicList comics={comics} />
+        </div>
+      </HeroPageStyled>
     </Layout>
   );
 }
