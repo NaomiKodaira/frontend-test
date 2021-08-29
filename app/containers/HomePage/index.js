@@ -13,6 +13,7 @@ import Layout from 'components/Layout';
 import MainHeader from 'components/Header/MainHeader';
 import device, { size } from 'config/devices';
 import useWindowSize from 'utils/useWindowSize';
+import PropTypes from 'prop-types';
 import messages from './messages';
 
 const FiltersStyled = styled.div`
@@ -55,11 +56,13 @@ const FiltersStyled = styled.div`
   }
 `;
 
-export default function HomePage() {
+export default function HomePage(props) {
+  const { location } = props;
   const limit = 20;
+  const query = new URLSearchParams(location.search);
   const [heroCount, setHeroCount] = useState(0);
   const [heroes, setHeroes] = useState(undefined);
-  const [name, setName] = useState(undefined);
+  const [name, setName] = useState(query.get('search'));
   const [currentPage, setCurrentPage] = useState(1);
   const [order, setOrder] = useState('name');
   const [onlyFavs, setOnlyFavs] = useState(false);
@@ -152,6 +155,7 @@ export default function HomePage() {
           onSearch={value => {
             setName(value);
           }}
+          initialValue={name}
           width={(windowSize.width < size.tablet && '100%') || '90%'}
         />
         <FiltersStyled>
@@ -193,3 +197,7 @@ export default function HomePage() {
     </Layout>
   );
 }
+
+HomePage.propTypes = {
+  location: PropTypes.object,
+};

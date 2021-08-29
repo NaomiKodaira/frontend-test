@@ -12,6 +12,12 @@ const LayoutStyled = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
 
+  & > div,
+  & > header,
+  & > footer {
+    z-index: 2;
+  }
+
   & > main {
     margin: 40px 10% 80px;
   }

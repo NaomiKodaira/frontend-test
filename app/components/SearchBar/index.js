@@ -58,9 +58,10 @@ function SearchBar(props) {
     width,
     small,
     intl,
+    initialValue,
   } = props;
 
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(initialValue);
 
   return (
     <SearchBarStyled
@@ -104,6 +105,7 @@ SearchBar.propTypes = {
   width: PropTypes.string,
   intl: intlShape.isRequired,
   small: PropTypes.bool,
+  initialValue: PropTypes.string,
 };
 
 SearchBar.defaultProps = {

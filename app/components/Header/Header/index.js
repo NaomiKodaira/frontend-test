@@ -4,6 +4,8 @@ import LogoHeader from 'assets/logo/logoHeader';
 import SearchBar from 'components/SearchBar';
 import device from 'config/devices';
 import colours from 'config/colours';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const HeaderStyled = styled.header`
   display: flex;
@@ -30,7 +32,8 @@ const HeaderStyled = styled.header`
   }
 `;
 
-function Header() {
+function Header(props) {
+  const { history } = props;
   return (
     <HeaderStyled>
       <LogoHeader />
@@ -38,9 +41,14 @@ function Header() {
         backgroundColour="#ffffff"
         textColour={colours.primaryTextColour}
         small
+        onSearch={value => history.push(`/?search=${value}`)}
       />
     </HeaderStyled>
   );
 }
 
-export default Header;
+Header.propTypes = {
+  history: PropTypes.object,
+};
+
+export default withRouter(Header);
