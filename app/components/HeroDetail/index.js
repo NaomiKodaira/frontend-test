@@ -11,7 +11,7 @@ import messages from './messages';
 
 const HeroDetailStyled = styled.div`
   display: grid;
-  template-grid-rows: auto 1fr auto auto auto;
+  grid-template-rows: auto 1fr auto auto auto;
   row-gap: 20px;
 
   & > div {
