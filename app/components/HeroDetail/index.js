@@ -10,7 +10,7 @@ import video from 'assets/icones/video/video.svg';
 const HeroDetailStyled = styled.div`
   display: grid;
   template-grid-rows: auto 1fr auto auto auto;
-  row-gap: 15px;
+  row-gap: 20px;
 
   & > div {
     display: flex;
@@ -27,32 +27,45 @@ const HeroDetailStyled = styled.div`
 function HeroDetail(props) {
   const { hero, lastComic } = props;
 
+  const lastComicText =
+    (lastComic &&
+      new Intl.DateTimeFormat('pt', { dateStyle: 'medium' }).format(
+        new Date(lastComic),
+      )) ||
+    '';
+
   return (
-    (hero && (
-      <HeroDetailStyled>
-        <div>
-          <Title fontWeight="bold">{hero.name}</Title>
-          <Favourite hero={hero} />
-        </div>
-        <MediumText colour="secondaryTextColour">{hero.description}</MediumText>
-        <div>
-          <IconNumber
-            label="Quadrinhos"
-            number={hero.comics.available}
-            icon={book}
-            alt="Icone Livro"
-          />
-          <IconNumber
-            label="Series"
-            number={hero.series.available}
-            icon={video}
-            alt="Icone Vídeo"
-          />
-        </div>
-        <SmallText fontWeight="bold">Rating: star</SmallText>
-        <SmallText fontWeight="bold">Ultimo quadrinho: {lastComic}</SmallText>
-      </HeroDetailStyled>
-    )) || <p>Carregando...</p>
+    <>
+      {(hero && (
+        <HeroDetailStyled>
+          <div>
+            <Title fontWeight="bold">{hero.name}</Title>
+            <Favourite hero={hero} />
+          </div>
+          <MediumText colour="secondaryTextColour">
+            {hero.description}
+          </MediumText>
+          <div>
+            <IconNumber
+              label="Quadrinhos"
+              number={hero.comics.available}
+              icon={book}
+              alt="Icone Livro"
+            />
+            <IconNumber
+              label="Series"
+              number={hero.series.available}
+              icon={video}
+              alt="Icone Vídeo"
+            />
+          </div>
+          <SmallText fontWeight="bold">Rating: star</SmallText>
+          <SmallText>
+            <b>Ultimo quadrinho:</b> {lastComicText}
+          </SmallText>
+        </HeroDetailStyled>
+      )) || <p>Carregando...</p>}
+    </>
   );
 }
 
