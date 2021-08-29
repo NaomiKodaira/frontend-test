@@ -6,6 +6,8 @@ import Favourite from 'components/Favourite';
 import IconNumber from 'components/IconNumber';
 import book from 'assets/icones/book/book.svg';
 import video from 'assets/icones/video/video.svg';
+import { injectIntl, intlShape } from 'react-intl';
+import messages from './messages';
 
 const HeroDetailStyled = styled.div`
   display: grid;
@@ -25,9 +27,17 @@ const HeroDetailStyled = styled.div`
 `;
 
 function HeroDetail(props) {
-  const { hero, lastComic } = props;
+  const {
+    hero,
+    lastComic,
+    intl,
+    bookText,
+    seriesText,
+    ratingText,
+    lastComicText,
+  } = props;
 
-  const lastComicText =
+  const dateText =
     (lastComic &&
       new Intl.DateTimeFormat('pt', { dateStyle: 'medium' }).format(
         new Date(lastComic),
@@ -47,21 +57,24 @@ function HeroDetail(props) {
           </MediumText>
           <div>
             <IconNumber
-              label="Quadrinhos"
+              label={bookText || intl.formatMessage(messages.comics)}
               number={hero.comics.available}
               icon={book}
               alt="Icone Livro"
             />
             <IconNumber
-              label="Series"
+              label={seriesText || intl.formatMessage(messages.series)}
               number={hero.series.available}
               icon={video}
               alt="Icone Vídeo"
             />
           </div>
-          <SmallText fontWeight="bold">Rating: star</SmallText>
+          <SmallText fontWeight="bold">
+            {ratingText || intl.formatMessage(messages.rating)}
+          </SmallText>
           <SmallText>
-            <b>Ultimo quadrinho:</b> {lastComicText}
+            <b>{lastComicText || intl.formatMessage(messages.lastComic)}</b>{' '}
+            {dateText}
           </SmallText>
         </HeroDetailStyled>
       )) || <p>Carregando...</p>}
@@ -72,6 +85,11 @@ function HeroDetail(props) {
 HeroDetail.propTypes = {
   hero: PropTypes.object,
   lastComic: PropTypes.string,
+  intl: intlShape.isRequired,
+  bookText: PropTypes.string,
+  seriesText: PropTypes.string,
+  ratingText: PropTypes.string,
+  lastComicText: PropTypes.string,
 };
 
-export default HeroDetail;
+export default injectIntl(HeroDetail);
