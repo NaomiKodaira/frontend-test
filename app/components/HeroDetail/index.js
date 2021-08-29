@@ -7,6 +7,7 @@ import IconNumber from 'components/IconNumber';
 import book from 'assets/icones/book/book.svg';
 import video from 'assets/icones/video/video.svg';
 import { injectIntl, intlShape } from 'react-intl';
+import Rating from 'components/Rating';
 import messages from './messages';
 
 const HeroDetailStyled = styled.div`
@@ -72,6 +73,7 @@ function HeroDetail(props) {
           <SmallText fontWeight="bold">
             {ratingText || intl.formatMessage(messages.rating)}
           </SmallText>
+          <Rating />
           <SmallText>
             <b>{lastComicText || intl.formatMessage(messages.lastComic)}</b>{' '}
             {dateText}
