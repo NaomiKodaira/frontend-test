@@ -92,6 +92,11 @@ function Pagination(props) {
         max={maxPage}
         onChange={v => setDisplay(v.target.value)}
         onBlur={v => changePage(parseInt(v.target.value, 10))}
+        onKeyDown={v => {
+          if (v.key === 'Enter') {
+            v.target.blur();
+          }
+        }}
       />
       <MediumText> de {maxPage || '1'}</MediumText>
       <IconButton

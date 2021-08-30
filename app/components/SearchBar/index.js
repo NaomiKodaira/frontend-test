@@ -86,6 +86,7 @@ function SearchBar(props) {
         onKeyDown={v => {
           if (v.key === 'Enter') {
             onSearch(value);
+            v.target.blur();
           }
         }}
         onBlur={onBlur}
