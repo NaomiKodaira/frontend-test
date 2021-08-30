@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import device from 'config/devices';
 
 const BackgroundNameStyled = styled.div`
   position: absolute;
@@ -23,7 +24,7 @@ const BackgroundNameStyled = styled.div`
   user-select: none; /* Non-prefixed version, currently
                                 supported by Chrome, Edge, Opera and Firefox */
 
-  @media (orientation: landscape) {
+  @media (orientation: landscape) and ${device.tablet} {
     font-size: ${props => 100 / props.fontSize.landscape}vw;
   }
 `;

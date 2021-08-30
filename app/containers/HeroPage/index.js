@@ -6,6 +6,7 @@ import { LargeText } from 'components/Text';
 import styled from 'styled-components';
 import Layout from 'components/Layout';
 import colours from 'config/colours';
+import device from 'config/devices';
 import ComicList from 'components/ComicList';
 import HeroDetail from 'components/HeroDetail';
 import BackgroundWord from 'components/BackgroundWord';
@@ -46,7 +47,7 @@ const HeroPageStyled = styled.div`
     }
   }
 
-  @media (orientation: landscape) {
+  @media (orientation: landscape) and ${device.tablet} {
     & > div:first-child {
       align-items: center;
 
