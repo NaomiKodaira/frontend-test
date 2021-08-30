@@ -1,4 +1,5 @@
 
+
 # Luizalabs Frontend Challenge
 
 ### Objetivo
@@ -47,6 +48,10 @@ $ yarn install
 $ yarn start
 ```
 
+### Alterações feitas para adequar a API
+- A imagem dos heróis na página de detalhes não está configurada para aparecer, isso pois a API provida não traz imagens do herói com fundo transparente e o layout com uma imagem com background quadrada fica muito feio
+- Ao invés de filmes na página de descrição foi utilizado as séries que o herói participou
+- Rating também não é algo que a API possui, para que o rating de todos os heróis não fosse sempre um `Math.random()` foi somado os números do id do herói depois tirado o módulo desse número por 10 e dividido por 2, isso para poder mostrar que o componente aceita ratings quebrados
 
 <br/>
 <br/>
