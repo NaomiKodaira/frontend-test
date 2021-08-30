@@ -66,50 +66,44 @@ function HeroDetail(props) {
       2;
 
   return (
-    <>
-      {(hero && (
-        <HeroDetailStyled>
-          <div>
-            <Title fontWeight="bold" textAlign="left">
-              {hero.name}
-            </Title>
-            <Favourite hero={hero} />
-          </div>
-          <MediumText colour="secondaryTextColour">
-            {hero.description}
-          </MediumText>
-          <div>
-            <IconNumber
-              label={bookText || intl.formatMessage(messages.comics)}
-              number={hero.comics.available}
-              icon={book}
-              alt="Icone Livro"
-            />
-            <IconNumber
-              label={seriesText || intl.formatMessage(messages.series)}
-              number={hero.series.available}
-              icon={video}
-              alt="Icone Vídeo"
-            />
-          </div>
-          <div>
-            <SmallText fontWeight="bold">
-              {ratingText || intl.formatMessage(messages.rating)}
-            </SmallText>
-            <Rating score={fixedRating} />
-          </div>
-          <SmallText>
-            <b>{lastComicText || intl.formatMessage(messages.lastComic)}</b>{' '}
-            {dateText || 'Sem quadrinhos'}
-          </SmallText>
-        </HeroDetailStyled>
-      )) || <p>Carregando...</p>}
-    </>
+    <HeroDetailStyled>
+      <div>
+        <Title fontWeight="bold" textAlign="left">
+          {hero.name}
+        </Title>
+        <Favourite hero={hero} />
+      </div>
+      <MediumText colour="secondaryTextColour">{hero.description}</MediumText>
+      <div>
+        <IconNumber
+          label={bookText || intl.formatMessage(messages.comics)}
+          number={hero.comics.available}
+          icon={book}
+          alt="Icone Livro"
+        />
+        <IconNumber
+          label={seriesText || intl.formatMessage(messages.series)}
+          number={hero.series.available}
+          icon={video}
+          alt="Icone Vídeo"
+        />
+      </div>
+      <div>
+        <SmallText fontWeight="bold">
+          {ratingText || intl.formatMessage(messages.rating)}
+        </SmallText>
+        <Rating score={fixedRating} />
+      </div>
+      <SmallText>
+        <b>{lastComicText || intl.formatMessage(messages.lastComic)}</b>{' '}
+        {dateText || 'Sem quadrinhos'}
+      </SmallText>
+    </HeroDetailStyled>
   );
 }
 
 HeroDetail.propTypes = {
-  hero: PropTypes.object,
+  hero: PropTypes.object.isRequired,
   lastComic: PropTypes.string,
   intl: intlShape.isRequired,
   bookText: PropTypes.string,

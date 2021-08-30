@@ -114,18 +114,20 @@ export default function HeroPage(props) {
   return (
     <Layout backgroundColour={colours.accentColour}>
       <HeroPageStyled>
-        <div>
-          <HeroDetail
-            hero={hero}
-            lastComic={
-              comics &&
-              comics.length !== 0 &&
-              comics[0].dates.find(item => item.type === 'onsaleDate').date
-            }
-          />
-          <div>{/* <ImageMosaic data={hero} /> */}</div>
-          {hero && <BackgroundWord word={hero.name} />}
-        </div>
+        {hero && (
+          <div>
+            <HeroDetail
+              hero={hero}
+              lastComic={
+                comics &&
+                comics.length !== 0 &&
+                comics[0].dates.find(item => item.type === 'onsaleDate').date
+              }
+            />
+            <div>{/* <ImageMosaic data={hero} /> */}</div>
+            <BackgroundWord word={hero.name} />
+          </div>
+        )}
         <div>
           <LargeText fontWeight="bold">
             <FormattedMessage {...messages.lastComicList} />

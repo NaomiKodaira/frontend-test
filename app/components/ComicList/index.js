@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ComicItem from 'components/ComicItem';
 import device from 'config/devices';
-import { MediumText } from 'components/Text';
+import Loading from 'components/Loading';
 
 const ComicListStyled = styled.div`
   display: grid;
@@ -26,12 +26,15 @@ const ComicListStyled = styled.div`
 function ComicList(props) {
   const { comics, loading } = props;
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <ComicListStyled total={comics && comics.length}>
-      {(loading && <MediumText>Carregando...</MediumText>) ||
-        (comics &&
-          comics.length !== 0 &&
-          comics.map(item => <ComicItem data={item} key={item.id} />))}
+      {comics &&
+        comics.length !== 0 &&
+        comics.map(item => <ComicItem data={item} key={item.id} />)}
     </ComicListStyled>
   );
 }
