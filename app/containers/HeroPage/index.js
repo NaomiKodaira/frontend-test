@@ -11,6 +11,7 @@ import ComicList from 'components/ComicList';
 import HeroDetail from 'components/HeroDetail';
 import BackgroundWord from 'components/BackgroundWord';
 // import ImageMosaic from 'components/ImageMosaic';
+import Loading from 'components/Loading';
 import messages from './messages';
 
 const HeroPageStyled = styled.div`
@@ -69,9 +70,10 @@ export default function HeroPage(props) {
 
   const [hero, setHero] = useState(undefined);
   const [comics, setComics] = useState(undefined);
+  const [loading, setLoading] = useState(false);
 
   async function getHero() {
-    // setLoading(true);
+    setLoading(true);
     await api
       .getCharacter(heroId)
       .then(response => {
@@ -93,13 +95,21 @@ export default function HeroPage(props) {
         console.error(err);
       })
       .finally(() => {
-        // setLoading(false);
+        setLoading(false);
       });
   }
 
   useEffect(() => {
     getHero();
   }, []);
+
+  if (loading) {
+    return (
+      <Layout backgroundColour={colours.accentColour}>
+        <Loading />
+      </Layout>
+    );
+  }
 
   return (
     <Layout backgroundColour={colours.accentColour}>

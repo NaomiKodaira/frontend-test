@@ -93,7 +93,7 @@ function Pagination(props) {
         onChange={v => setDisplay(v.target.value)}
         onBlur={v => changePage(parseInt(v.target.value, 10))}
       />
-      <MediumText> de {maxPage}</MediumText>
+      <MediumText> de {maxPage || '1'}</MediumText>
       <IconButton
         onClick={() => changePage(currentPage + 1)}
         icon={arrow}
