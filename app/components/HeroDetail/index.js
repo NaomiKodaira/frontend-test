@@ -56,6 +56,15 @@ function HeroDetail(props) {
       )) ||
     '';
 
+  const fixedRating =
+    hero &&
+    (hero.id
+      .toString()
+      .split('')
+      .reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0) %
+      10) /
+      2;
+
   return (
     <>
       {(hero && (
@@ -87,11 +96,11 @@ function HeroDetail(props) {
             <SmallText fontWeight="bold">
               {ratingText || intl.formatMessage(messages.rating)}
             </SmallText>
-            <Rating score={Math.random() * 5} />
+            <Rating score={fixedRating} />
           </div>
           <SmallText>
             <b>{lastComicText || intl.formatMessage(messages.lastComic)}</b>{' '}
-            {dateText}
+            {dateText || 'Sem quadrinhos'}
           </SmallText>
         </HeroDetailStyled>
       )) || <p>Carregando...</p>}
