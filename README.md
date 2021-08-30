@@ -1,3 +1,4 @@
+
 # Luizalabs Frontend Challenge
 
 ### Objetivo
@@ -22,7 +23,7 @@ Desenvolver uma aplicação de listagem e detalhe de personagens de quadrinhos.
   - Exibir dados do personagem;
   - Exibir últimos 10 quadrinhos lançados deste personagem (onSaleDate);
   - Permitir o usuário favoritar/desfavoritar (dentro do limite de 5).
-  
+
 #### `Bônus (não obrigatório)`
 - Adicionar paginação a listagem para exibir além dos 20 personagens iniciais;
 - Persistir os dados de favoritos (para manter os dados após o reload da página);
@@ -35,6 +36,17 @@ Desenvolver uma aplicação de listagem e detalhe de personagens de quadrinhos.
 ### Dicas
 - Valorizamos muito testes em nosso processo de desenvolvimento;
 - Aqui no LuizaLabs todos os desenvolvedores podem participar do processo de avaliação técnica então oriente os avaliadores a como instalar, testar e executar seu código.
+
+### Como rodar
+O aplicativo está no ar na segunte url: [http://d3cqkrwpxsu3rb.cloudfront.net/](http://d3cqkrwpxsu3rb.cloudfront.net/)
+
+Caso queria rodar localmente, após fazer o clone do repo, basta rodar os comandos padrões:
+
+``` shell
+$ yarn install
+$ yarn start
+```
+
 
 <br/>
 <br/>
