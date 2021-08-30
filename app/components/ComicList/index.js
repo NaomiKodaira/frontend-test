@@ -31,13 +31,13 @@ function ComicList(props) {
       {(loading && <MediumText>Carregando...</MediumText>) ||
         (comics &&
           comics.length !== 0 &&
-          comics.map(item => <ComicItem data={item} id={item.id} />))}
+          comics.map(item => <ComicItem data={item} key={item.id} />))}
     </ComicListStyled>
   );
 }
 
 ComicList.propTypes = {
-  comics: PropTypes.object,
+  comics: PropTypes.array,
   loading: PropTypes.bool,
 };
 

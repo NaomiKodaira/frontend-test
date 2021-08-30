@@ -1,1 +1,15 @@
-[]
+{
+  "app.components.SearchBar.search": "Procure por heróis",
+  "app.containers.HeroDetail.comics": "Quadrinhos",
+  "app.containers.HeroDetail.lastComic": "Último quadrinho:",
+  "app.containers.HeroDetail.rating": "Rating:",
+  "app.containers.HeroDetail.series": "Series",
+  "app.containers.HeroPage.lastComicList": "Últimos lançamentos",
+  "app.containers.HomePage.favourite": "Somente favoritos",
+  "app.containers.HomePage.found": "Encontrados {value} heróis",
+  "app.containers.HomePage.header": "Explore o universo",
+  "app.containers.HomePage.orderModified": "Ordernar por recentemente",
+  "app.containers.HomePage.orderName": "Ordernar por nome - A/Z",
+  "app.containers.HomePage.subHeader": "Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!",
+  "app.containers.NotFoundPage.header": "This is the NotFoundPage container!"
+}
