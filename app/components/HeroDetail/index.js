@@ -61,7 +61,9 @@ function HeroDetail(props) {
       {(hero && (
         <HeroDetailStyled>
           <div>
-            <Title fontWeight="bold">{hero.name}</Title>
+            <Title fontWeight="bold" textAlign="left">
+              {hero.name}
+            </Title>
             <Favourite hero={hero} />
           </div>
           <MediumText colour="secondaryTextColour">
